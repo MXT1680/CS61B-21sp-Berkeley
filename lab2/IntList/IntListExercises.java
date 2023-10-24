@@ -10,10 +10,15 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+//        while (head.rest != null) {
+//            head.first += c;
+//            head = head.rest;
+//        }
+        for(int i=0;i< lst.size();i++){
             head.first += c;
             head = head.rest;
         }
+
     }
 
     /**
@@ -26,7 +31,12 @@ public class IntListExercises {
     public static void setToZeroIfMaxFEL(IntList L) {
         IntList p = L;
         while (p != null) {
-            if (firstDigitEqualsLastDigit(max(p))) {
+//            if (firstDigitEqualsLastDigit(max(p))) {
+//                p.first = 0;
+//            }
+            int currentMax = max(p);
+            boolean firstEqualsLast = firstDigitEqualsLastDigit(currentMax);
+            if (firstEqualsLast) {
                 p.first = 0;
             }
             p = p.rest;
@@ -51,7 +61,7 @@ public class IntListExercises {
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -67,16 +77,29 @@ public class IntListExercises {
      */
     public static boolean squarePrimes(IntList lst) {
         // Base Case: we have reached the end of the list
+
+//        if (lst == null) {
+//            return false;
+//        }
+//
+//        boolean currElemIsPrime = Primes.isPrime(lst.first);
+//
+//        if (currElemIsPrime) {
+//            lst.first *= lst.first;
+//        }
+
+//        return currElemIsPrime || squarePrimes(lst.rest);
         if (lst == null) {
             return false;
         }
-
         boolean currElemIsPrime = Primes.isPrime(lst.first);
-
         if (currElemIsPrime) {
             lst.first *= lst.first;
         }
-
-        return currElemIsPrime || squarePrimes(lst.rest);
+        if(lst.rest !=null){
+            squarePrimes(lst.rest);
+        }
+       // return currElemIsPrime;
+        return true;
     }
 }
