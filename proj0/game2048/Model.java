@@ -138,6 +138,14 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int i = b.size();
+        for (int j = 0; j < i; j++) {
+            for (int k = 0; k <i; k++) {
+                if(b.tile(j,k)== null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +156,15 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int i = b.size();
+        for (int j = 0; j < i; j++) {
+            for (int k = 0; k <i; k++) {
+                 //Tile t = b.tile(j,k);
+                if(b.tile(j,k) !=null && b.tile(j,k).value() == MAX_PIECE){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +176,34 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+//        int size = b.size();
+//        for (int j = 0; j < size; j++) {
+//            for (int k = 0; k <size; k++) {
+//                if(b.tile(j,k)== null){
+//                    return true;
+//                }
+//            }
+//        }
+        if(emptySpaceExists(b)) return true;
+        int size = b.size();    
+        int[]m ={0,1,-1,0};
+        int[]n ={1,0,0,-1} ;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int move = 0; move < 4; move++) {
+                    int w = b.tile(i,j).value();
+                    int a = i+m[move];
+                    int c = j+n[move];
+                    if (a >=0&& c>=0 && a <size&& c<size){
+                        int k =b.tile(a,c).value();
+                        if(w ==k){
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+        }
         return false;
     }
 
