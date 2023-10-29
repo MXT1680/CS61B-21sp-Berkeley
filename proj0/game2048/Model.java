@@ -114,6 +114,58 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+
+        board.setViewingPerspective(side);
+        for (int i = 0; i <board.size() ; i++) {
+            for (int j =board.size()-1; j >=0; j--) {
+                Tile t = board.tile(i,j);
+                if(board.tile(i,j)!=null){
+                    // 把空值放后面
+                    int b =3;
+                    while(b>=j){
+                        if(board.tile(i,b)==null){
+                            break;
+                        }
+                        b--;
+                    }
+                    if (b>=j){
+                        board.move(i,b,t);
+                        changed=true;
+                    }
+                    //board.setViewingPerspective(Side.NORTH);
+                }
+            }
+        }
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = board.size() - 1; j >= 0; j--) {
+                // 开始遍历每个格子的值
+                Tile t = board.tile(i, j);
+                int next = j - 1;
+                Tile n = board.tile(i, next);
+                if (next < 0) {
+                    break;
+                }
+                if (t == null || n == null) {
+                    break;
+                }
+                if (t.value() == n.value()) {
+                    board.move(i, j, n);
+                    score += n.value() * 2;
+                    for (int p = next - 1; p >= 0; p--) {
+                        Tile P = board.tile(i, p);
+                        if (P == null) {
+                            break;
+                        }
+                        if(p<board.size()) {
+                            board.move(i, p + 1, P);
+                        }
+                    }
+                    changed = true;
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
+
         checkGameOver();
         if (changed) {
             setChanged();
@@ -185,7 +237,7 @@ public class Model extends Observable {
 //            }
 //        }
         if(emptySpaceExists(b)) return true;
-        int size = b.size();    
+        int size = b.size();
         int[]m ={0,1,-1,0};
         int[]n ={1,0,0,-1} ;
         for (int i = 0; i < size; i++) {
@@ -202,7 +254,7 @@ public class Model extends Observable {
                     }
                 }
             }
-            
+
         }
         return false;
     }
