@@ -30,7 +30,9 @@ public class AListNoResizing<Item> {
         size = size + 1;
     }
 
-    /** Returns the item from the back of the list. */
+    /**
+     * Returns the item from the back of the list.
+     */
     public Item getLast() {
         return items[size - 1];
     }

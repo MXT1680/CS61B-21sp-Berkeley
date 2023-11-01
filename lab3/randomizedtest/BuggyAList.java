@@ -14,7 +14,7 @@ package randomizedtest;
  size: The number of items in the list should be size.
 */
 
-public class BuggyAList<Item> {
+public class    BuggyAList<Item> {
     private Item[] items;
     private int size;
 
@@ -29,6 +29,7 @@ public class BuggyAList<Item> {
         Item[] a = (Item[]) new Object[capacity];
         for (int i = 0; i < size; i += 1) {
             a[i] = items[i];
+            //System.arraycopy(items,0,a,0,size);
         }
         items = a;
     }
@@ -59,9 +60,9 @@ public class BuggyAList<Item> {
     /** Deletes item from back of the list and
       * returns deleted item. */
     public Item removeLast() {
-        if ((size < items.length / 4) && (size > 4)) {
-            resize(size / 4);
-        }
+//        if ((size < items.length / 4) && (size > 4)) {
+//            resize(size / 4);
+//        }
         Item x = getLast();
         items[size - 1] = null;
         size = size - 1;
